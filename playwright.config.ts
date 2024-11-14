@@ -30,8 +30,18 @@ export default defineConfig({
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
+
+    // 테스트 실행 시 실제로 수행 동작 확인
     headless: false,
-    browserName: "chromium",
+    
+    // 동작 타임아웃 5초
+    actionTimeout: 5000,
+
+    // baseURL : 내 블로그
+    baseURL: 'https://letminjae.tistory.com',
+
+    // 뷰포트 자동으로 최대
+    viewport: null,
   },
 
   /* Configure projects for major browsers */
