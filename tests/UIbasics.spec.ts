@@ -28,7 +28,18 @@ test.describe("나의 티스토리 블로그 UI 테스트", () => {
     const backgroundColor = await page.evaluate(() => {
       return window.getComputedStyle(document.body).backgroundColor;
     });
-    console.log(backgroundColor);
-    expect(backgroundColor).toBe('rgb(30, 31, 33)')
+    expect(backgroundColor).toBe("rgb(30, 31, 33)");
+  });
+
+  test(`첫 번째 글의 제목 확인`, async ({ page }) => {
+    // nth로 첫번째 요소만 가져오기
+    const titleLocator = page.locator(".post .header .tit").nth(0);
+
+    // 요소가 로드될 때까지 대기
+    await expect(titleLocator).toBeVisible();
+
+    // 텍스트 콘텐츠 가져오기
+    const titleText = await titleLocator.textContent();
+    console.log(titleText?.trim()); // 텍스트 공백 제거 후 출력
   });
 });
