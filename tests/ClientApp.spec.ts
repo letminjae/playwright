@@ -22,13 +22,13 @@ test.describe("과제 테스트", () => {
     console.log(titles);
   });
 
-  test.only("UI Control 테스트", async ({ page }) => {
-    await page.goto("https://rahulshettyacademy.com/loginpagePractise");
+  test("UI Control 테스트", async ({ page }) => {
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
 
     const userName = page.locator("input#userEmail");
     const loginButton = page.locator("#signInBtn");
     const dropdown = page.locator("select.form-control");
-    const documentLink = page.locator("[href*='document-request]");
+    const documentLink = page.locator("[href*='document-request']");
 
     // 라디오 버튼 클릭
     await page.locator(".radiotextsty").last().click();
@@ -47,5 +47,25 @@ test.describe("과제 테스트", () => {
 
     // link URL 확인
     await expect(documentLink).toHaveAttribute("class", "blinkingText");
+  });
+
+  test.only("@child 탭 테스트", async ({ browser }) => {
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+
+    const documentLink = page.locator("[href*='documents-request']");
+
+    // 병렬적 실행 => Promise.all로 묶어서 둘다 실행이 확인되면 새 페이지 반환값을 받는다.
+    const [newPage] = await Promise.all([
+      context.waitForEvent("page"),
+      documentLink.click(),
+    ]);
+
+    // ******* 여기서 부터 새 탭에서 실행되는 자동화 테스트 *******
+    const text = await newPage.locator(".red").textContent();
+    const emailArray = text!.split("@");
+    const domain = emailArray[1].split(" ")[0];
+    await page.locator("#username").fill(domain);
   });
 });
