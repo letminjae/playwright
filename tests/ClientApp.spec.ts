@@ -28,6 +28,7 @@ test.describe("과제 테스트", () => {
     const userName = page.locator("input#userEmail");
     const loginButton = page.locator("#signInBtn");
     const dropdown = page.locator("select.form-control");
+    const documentLink = page.locator("[href*='document-request]");
 
     // 라디오 버튼 클릭
     await page.locator(".radiotextsty").last().click();
@@ -43,5 +44,8 @@ test.describe("과제 테스트", () => {
     // 정책 체크버튼 취소
     await page.locator("#terms").uncheck();
     expect(await page.locator("#terms").isChecked()).toBeFalsy();
+
+    // link URL 확인
+    await expect(documentLink).toHaveAttribute("class", "blinkingText");
   });
 });
