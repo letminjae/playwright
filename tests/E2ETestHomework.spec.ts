@@ -55,12 +55,29 @@ test("E2E Test 과제 - 쇼핑물 제품 구입 E2E 테스트", async ({ page })
 
   // 결제 성공
   await page.locator(".action__submit").click();
-  await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
-  const orderText = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
-  const parts = orderText.split('|')
-  const orderId = parts[1].trim();
+  await expect(page.locator(".hero-primary")).toHaveText(
+    " Thankyou for the order. "
+  );
+  const orderId = await page
+    .locator(".em-spacer-1 .ng-star-inserted")
+    .textContent();
   console.log(orderId);
 
   // 주문 내역 확인
-  await page.locator("[routerLink*=myorders]").first().click();
+  await page.locator("button[routerLink*=myorders]").click();
+  await page.locator("tbody").waitFor();
+  const rows = await page.locator("tbody tr");
+  const trCount = await rows.count();
+  for (let i = 0; i < trCount; ++i) {
+    const rowOrderId = await rows.nth(i).locator("th").textContent();
+    console.log(rowOrderId);
+    if (orderId.includes(rowOrderId)) {
+      // 세부 내역 확인
+      await rows.nth(i).locator("button").first().click();
+      break;
+    }
+  }
+  // 세부 내역의 주문정보 확인
+  const orderIdDetails = await page.locator(".col-text").textContent();
+  expect(orderId.includes(orderIdDetails)).toBeTruthy();
 });
