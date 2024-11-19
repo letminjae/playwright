@@ -35,7 +35,7 @@ test("E2E Test 과제 - 쇼핑물 제품 구입 E2E 테스트", async ({ page })
   expect(bool).toBeTruthy();
   await page.locator("text=Checkout").click();
 
-  // 결제 페이지
+  // 결제 페이지 - 국가선택
   // Key를 하나씩 눌러야 추천 드롭다운이 열림 - pressSequentially
   await page.locator("[placeholder*='Country']").pressSequentially("korea");
   const dropdown = page.locator(".ta-results");
@@ -49,4 +49,18 @@ test("E2E Test 과제 - 쇼핑물 제품 구입 E2E 테스트", async ({ page })
       break;
     }
   }
+
+  // 결제 페이지 - 아이디 확인
+  expect(page.locator(".user__name [type='text']").first()).toHaveText(email);
+
+  // 결제 성공
+  await page.locator(".action__submit").click();
+  await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
+  const orderText = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
+  const parts = orderText.split('|')
+  const orderId = parts[1].trim();
+  console.log(orderId);
+
+  // 주문 내역 확인
+  await page.locator("[routerLink*=myorders]").first().click();
 });
