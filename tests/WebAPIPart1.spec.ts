@@ -6,8 +6,11 @@ const loginPayload = {
 };
 
 test.describe("Web API Test", () => {
+  // 토큰 전역사용
+  let token;
+  
+  // API Test Setup - login and response.json
   test.beforeAll(async () => {
-    // API Test Setup - login and response.json
     const apiContext = await request.newContext();
     const loginResponse = await apiContext.post(
       `https://rahulshettyacademy.com/api/ecom/auth/login/`,
@@ -17,7 +20,16 @@ test.describe("Web API Test", () => {
     );
     expect(loginResponse.ok()).toBeTruthy(); // 200, 201..
     const loginResponseJson = await loginResponse.json();
-    const token = loginResponseJson.token;
+    token = loginResponseJson.token;
     console.log(token);
   });
+
+  test.only("웹페이지 접속", async ({page}) => {
+    // addInitScript : 자바스크립트 구문을 삽입하여 페이지에서 실행 => 로컬스토리지에 토큰 세팅
+    page.addInitScript((value) => {
+      window.localStorage.setItem("token", value);
+    }, token);
+    await page.goto("https://rahulshettyacademy.com/client");
+  });
+
 });
