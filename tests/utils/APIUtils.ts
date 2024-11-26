@@ -1,8 +1,13 @@
+interface User {
+  userEmail: string;
+  userPassword: string;
+}
+
 export default class APIUtils {
   apiContext: any;
-  loginPayload: string;
+  loginPayload: User;
 
-  constructor(apiContext: any, loginPayload: string) {
+  constructor(apiContext: any, loginPayload: User) {
     this.apiContext = apiContext;
     this.loginPayload = loginPayload;
   }
@@ -22,7 +27,7 @@ export default class APIUtils {
     return token;
   }
 
-  async createOrder(orderPayload: string) {
+  async createOrder(orderPayload: object) {
     let response = { token: String, orderId: String };
     response.token = await this.getToken();
     const orderResponse = await this.apiContext.post(
