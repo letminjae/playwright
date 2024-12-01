@@ -3,9 +3,12 @@ import LoginPage from "../page_object/LoginPage";
 
 test.describe("과제 테스트", () => {
   test("로그인 후 타이틀 선택", async ({ page }) => {
-    await page.goto("https://rahulshettyacademy.com/client");
+    const email = "cmjj0824@naver.com";
+    const password = "Qwer1234!";
 
     const loginPage = new LoginPage(page);
+    loginPage.goTo();
+    loginPage.validLogin(email, password);
 
     // dashboard page에 진입되는지 확인
     await expect(page).toHaveURL(
