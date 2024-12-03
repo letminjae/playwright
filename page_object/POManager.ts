@@ -1,14 +1,25 @@
-import { Page } from '@playwright/test'
-import LoginPage from './LoginPage';
-import DashboardPage from './DashboardPage';
+import { Page } from "@playwright/test";
+import LoginPage from "./LoginPage";
+import DashboardPage from "./DashboardPage";
 
 class POManager {
-  loginPage: LoginPage
+  page: Page;
+  loginPage: LoginPage;
   dashboardPage: DashboardPage;
 
   constructor(page: Page) {
-    this.loginPage = new LoginPage(page);
-    this.dashboardPage = new DashboardPage(page);
+    // page 확실히 명시 필요
+    this.page = page;
+    this.loginPage = new LoginPage(this.page);
+    this.dashboardPage = new DashboardPage(this.page);
+  }
+
+  getLoginPage() {
+    return this.loginPage;
+  }
+
+  getDashboardPage() {
+    return this.dashboardPage;
   }
 }
 
