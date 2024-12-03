@@ -19,5 +19,10 @@ test.describe("과제 테스트", () => {
     const dashboardPage = poManager.getDashboardPage();
     await dashboardPage.searchProductAddCart(productName);
     await dashboardPage.navigateToCart();
+
+    // 카트 PO
+    const cartPage = poManager.getCartPage();
+    await cartPage.VerifyProductIsDisplayed(productName);
+    await cartPage.Checkout();
   });
 });
