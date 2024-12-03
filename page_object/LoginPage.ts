@@ -3,22 +3,23 @@ import { Locator, Page } from "@playwright/test";
 class LoginPage {
   page: Page;
   signInButton: Locator;
-  username: Locator;
+  userName: Locator;
   password: Locator;
 
   constructor(page: Page) {
     this.page = page;
     this.signInButton = page.getByRole("button", { name: "Login" });
-    this.username = page.locator("input#userEmail");
+    this.userName = page.locator("input#userEmail");
     this.password = page.locator("input#userPassword");
   }
 
   async goTo() {
-    await this.page.goto("https://rahulshettyacademy.com/client/");
+    await this.page.goto("https://rahulshettyacademy.com/client");
   }
 
   async validLogin(username: string, password: string) {
-    await this.username.fill(username);
+    await this.page.waitForSelector("input#userEmail", { state: 'visible' });
+    await this.userName.fill(username);
     await this.password.fill(password);
     await this.signInButton.click();
     await this.page.waitForLoadState("networkidle");
