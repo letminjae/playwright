@@ -24,5 +24,10 @@ test.describe("과제 테스트", () => {
     const cartPage = poManager.getCartPage();
     await cartPage.VerifyProductIsDisplayed(productName);
     await cartPage.Checkout();
+
+    // 주문 PO
+    const ordersReviewPage = poManager.getOrdersReviewPage();
+    await ordersReviewPage.searchCountryAndSelect("kor"," Korea, Republic of");
+    await ordersReviewPage.SubmitAndGetOrderId();
   });
 });
