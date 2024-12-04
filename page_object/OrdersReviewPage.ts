@@ -30,6 +30,7 @@ class OrdersReviewPage {
         break;
       }
     }
+    await this.submit.click();
   }
 
   async VerifyEmailId(username) {
@@ -37,7 +38,6 @@ class OrdersReviewPage {
   }
 
   async SubmitAndGetOrderId() {
-    await this.submit.click();
     await expect(this.orderConfirmationText).toHaveText(
       " Thankyou for the order. "
     );

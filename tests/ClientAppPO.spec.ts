@@ -1,8 +1,8 @@
-import { test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 import POManager from "../page_object/POManager";
 
-test.describe("과제 테스트", () => {
-  test("로그인 후 타이틀 선택", async ({ page }) => {
+test.describe("POM 테스트", () => {
+  test("E2E Test", async ({ page }) => {
     const username = "cmjj0824@naver.com";
     const password = "Qwer1234!";
     const productName = "ZARA COAT 3";
@@ -27,7 +27,18 @@ test.describe("과제 테스트", () => {
 
     // 주문 PO
     const ordersReviewPage = poManager.getOrdersReviewPage();
-    await ordersReviewPage.searchCountryAndSelect("kor"," Korea, Republic of");
-    await ordersReviewPage.SubmitAndGetOrderId();
+    await ordersReviewPage.searchCountryAndSelect("kor", " Korea, Republic of");
+    const orderId = await ordersReviewPage.SubmitAndGetOrderId();
+
+    await dashboardPage.navigateToOrders();
+
+    const ordersHistoryPage = poManager.getOrdersHistoryPage();
+    await ordersHistoryPage.searchOrderAndSelect(orderId);
+    const fetchedOrderId = await ordersHistoryPage.getOrderId();
+    if (orderId) {
+      expect(orderId.includes(fetchedOrderId || "")).toBeTruthy();
+    } else {
+      throw new Error("orderId is null.");
+    }
   });
 });

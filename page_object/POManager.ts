@@ -3,6 +3,7 @@ import LoginPage from "./LoginPage";
 import DashboardPage from "./DashboardPage";
 import CartPage from "./CartPage";
 import OrdersReviewPage from "./OrdersReviewPage";
+import OrdersHistoryPage from "./OrdersHistoryPage";
 
 class POManager {
   page: Page;
@@ -10,6 +11,7 @@ class POManager {
   dashboardPage: DashboardPage;
   cartPage: CartPage;
   ordersReviewPage: OrdersReviewPage;
+  ordersHistoryPage: OrdersHistoryPage;
 
   constructor(page: Page) {
     // page 확실히 명시 필요
@@ -18,6 +20,7 @@ class POManager {
     this.dashboardPage = new DashboardPage(this.page);
     this.cartPage = new CartPage(this.page);
     this.ordersReviewPage = new OrdersReviewPage(this.page);
+    this.ordersHistoryPage = new OrdersHistoryPage(this.page);
   }
 
   getLoginPage() {
@@ -34,6 +37,10 @@ class POManager {
 
   getOrdersReviewPage() {
     return this.ordersReviewPage;
+  }
+
+  getOrdersHistoryPage() {
+    return this.ordersHistoryPage;
   }
 }
 
