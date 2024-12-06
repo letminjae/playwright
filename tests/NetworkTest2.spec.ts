@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("API Intercept 관련 보안 테스트", async ({ page }) => {
+test("@API API Intercept 관련 보안 테스트", async ({ page }) => {
   // 로그인 후 주문
   await page.goto("https://rahulshettyacademy.com/client");
   await page.locator("#userEmail").fill("cmjj0824@naver.com");

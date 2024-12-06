@@ -15,7 +15,7 @@ const orderPayload = {
 };
 let orderId;
 
-test.describe("Web API Test", () => {
+test.describe("@API Web API Test", () => {
   let response;
 
   // API Test Setup - login and response

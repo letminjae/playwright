@@ -3,7 +3,7 @@ import POManager from "../page_object/POManager";
 import data from "./utils/TestData";
 import { customTest } from "./utils/TestBase";
 
-test("POM E2E Test", async ({ page }) => {
+test("@Web POM E2E Test", async ({ page }) => {
   const jsonData = JSON.parse(JSON.stringify(data));
 
   const poManager = new POManager(page);
@@ -42,7 +42,7 @@ test("POM E2E Test", async ({ page }) => {
 });
 
 // custom test - TestBase.ts
-customTest("Custom Test", async ({ page, testDataForOrder }) => {
+customTest("@Web Custom Test", async ({ page, testDataForOrder }) => {
   const poManager = new POManager(page);
   //js file- Login js, DashboardPage
   const products = page.locator(".card-body");

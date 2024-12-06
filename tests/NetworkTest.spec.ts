@@ -15,7 +15,7 @@ const orderPayload = {
 };
 const fakePayLoadOrders = { data: [], message: "No Orders" };
 
-test.describe("Web API Test", () => {
+test.describe("@API Web API Test", () => {
   let response;
   let orderId;
 
@@ -26,7 +26,7 @@ test.describe("Web API Test", () => {
     response = await apiUtils.createOrder(orderPayload);
   });
 
-  test("fake response로 없는 주문창 만들기", async ({ page }) => {
+  test("@API fake response로 없는 주문창 만들기", async ({ page }) => {
     // addInitScript : 자바스크립트 구문을 삽입하여 페이지에서 실행 => 로컬스토리지에 토큰 세팅
     page.addInitScript((value) => {
       window.localStorage.setItem("token", value);

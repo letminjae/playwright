@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("과제 테스트", () => {
+test.describe("@Web 과제 테스트", () => {
   test("로그인 후 타이틀 선택", async ({ page }) => {
     await page.goto("https://rahulshettyacademy.com/client");
 

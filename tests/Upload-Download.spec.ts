@@ -1,7 +1,7 @@
 import { expect, test, chromium } from "@playwright/test";
 import writeExcelValue from "./utils/ExcelUtils";
 
-test("엑셀 업로드 및 다운로드 테스트", async ({ page }) => {
+test("@Download 엑셀 업로드 및 다운로드 테스트", async ({ page }) => {
   const textSearch = "Mango";
   const textValue = "350";
 

@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("나의 티스토리 블로그 UI 테스트", () => {
+test.describe("@Web 나의 티스토리 블로그 UI 테스트", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto("/");
   });

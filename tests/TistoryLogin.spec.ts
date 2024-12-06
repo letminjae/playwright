@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test.describe("티스토리 로그인 테스트", () => {
+test.describe("@Tistory 티스토리 로그인 테스트", () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(
       "https://accounts.kakao.com/login/?continue=https%3A%2F%2Faccounts.kakao.com%2Fweblogin%2Faccount&talk_login=&login_type=simple#login"
