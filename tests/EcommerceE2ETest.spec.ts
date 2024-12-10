@@ -1,6 +1,6 @@
 const { test, expect } = require("@playwright/test");
 
-test("@Web E2E Test 과제 - 쇼핑물 제품 구입 E2E 테스트", async ({ page }) => {
+test("@Web 쇼핑물 제품 구입 E2E 테스트", async ({ page }) => {
   //js file- Login js, DashboardPage
   const email = "cmjj0824@naver.com";
   const password = "Qwer1234!";
