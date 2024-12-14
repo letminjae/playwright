@@ -1,5 +1,6 @@
 Feature: Ecommerce Validations
-
+    @Regression
+    @foo
     Scenario: Placing the order
       Given a login to Ecommerce application with "cmjj0824@naver.com" and "Qwer1234!"
       When Add "ZARA COAT 3" to Cart
