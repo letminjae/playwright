@@ -37,31 +37,23 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var cucumber_1 = require("@cucumber/cucumber");
-var POManager_1 = require("../../page_object/POManager");
 var test_1 = require("@playwright/test");
+var POManager_1 = require("../../page_object/POManager");
 var poManager;
-(0, cucumber_1.Given)("a login to Ecommerce application with {string} and {string}", { timeout: 100 * 1000 }, function (username, password) {
+(0, cucumber_1.Given)("a login to Ecommerce application with {string} and {string}", function (username, password) {
     return __awaiter(this, void 0, void 0, function () {
-        var browser, context, page, products, loginPage;
+        var products, loginPage;
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, test_1.chromium.launch()];
-                case 1:
-                    browser = _a.sent();
-                    return [4 /*yield*/, browser.newContext()];
-                case 2:
-                    context = _a.sent();
-                    return [4 /*yield*/, context.newPage()];
-                case 3:
-                    page = _a.sent();
-                    this.poManager = new POManager_1.default(page);
-                    products = page.locator(".card-body");
+                case 0:
+                    this.poManager = new POManager_1.default(this.page);
+                    products = this.page.locator(".card-body");
                     loginPage = this.poManager.getLoginPage();
                     return [4 /*yield*/, loginPage.goTo()];
-                case 4:
+                case 1:
                     _a.sent();
                     return [4 /*yield*/, loginPage.validLogin(username, password)];
-                case 5:
+                case 2:
                     _a.sent();
                     return [2 /*return*/];
             }

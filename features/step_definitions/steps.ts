@@ -1,18 +1,13 @@
 import { When, Then, Given } from "@cucumber/cucumber";
+import { expect } from "@playwright/test";
 import POManager from "../../page_object/POManager";
-import { expect, chromium } from "@playwright/test";
-import DashboardPage from "../../page_object/DashboardPage";
 let poManager;
 
 Given(
   "a login to Ecommerce application with {string} and {string}",
-  { timeout: 100 * 1000 },
   async function (username, password) {
-    const browser = await chromium.launch();
-    const context = await browser.newContext();
-    const page = await context.newPage();
-    this.poManager = new POManager(page);
-    const products = page.locator(".card-body");
+    this.poManager = new POManager(this.page);
+    const products = this.page.locator(".card-body");
     const loginPage = this.poManager.getLoginPage();
     await loginPage.goTo();
     await loginPage.validLogin(username, password);
