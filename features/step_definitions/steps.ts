@@ -1,43 +1,50 @@
 import { When, Then, Given } from "@cucumber/cucumber";
 import POManager from "../../page_object/POManager";
-import { Location, test, expect, chromium } from "@playwright/test";
+import { expect, chromium } from "@playwright/test";
+import DashboardPage from "../../page_object/DashboardPage";
+let poManager;
 
 Given(
-  "a login to Ecommerce application with {username} and {password}",
+  "a login to Ecommerce application with {string} and {string}",
+  { timeout: 100 * 1000 },
   async function (username, password) {
     const browser = await chromium.launch();
     const context = await browser.newContext();
     const page = await context.newPage();
     this.poManager = new POManager(page);
     const products = page.locator(".card-body");
-    const loginPage = poManager.getLoginPage();
+    const loginPage = this.poManager.getLoginPage();
     await loginPage.goTo();
     await loginPage.validLogin(username, password);
   }
 );
 
-When("Add {string} to Cart", async function (string) {
+When("Add {string} to Cart", async function (productName) {
   const dashboardPage = this.poManager.getDashboardPage();
-  await dashboardPage.searchProductAddCart(data.productName);
+  await dashboardPage.searchProductAddCart(productName);
   await dashboardPage.navigateToCart();
 });
 
-Then("Verify {string} is displayed in the cart", async function (string) {
+Then("Verify {string} is displayed in the Cart", async function (productName) {
   const cartPage = this.poManager.getCartPage();
-  await cartPage.verifyProductIsDisplayed(data.productName);
-  await cartPage.checkout();
+  await cartPage.VerifyProductIsDisplayed(productName);
+  await cartPage.Checkout();
 });
 
 When("Enter valid details and Place the order", async function () {
   const ordersReviewPage = this.poManager.getOrdersReviewPage();
-  await ordersReviewPage.searchCountryAndSelect("kor", "Korea, republic of");
-  const orderId = await ordersReviewPage.SubmitAndGetOrderId();
-  console.log(orderId);
+  await ordersReviewPage.searchCountryAndSelect("kor", " Korea, Republic of");
+  this.orderId = await ordersReviewPage.SubmitAndGetOrderId();
+  console.log(this.orderId);
 });
 
-Then("Verify order in present in the OrderHistory", async function(){
-  await this.dashboardPage.navigateToOrderHistory();
-  const orderHistoryPage = this.poManager.getOrderHistoryPage();
-  await orderHistoryPage.searchOrderAndSelect(orderId);
-  expect(orderId.includes(await orderHistoryPage.getOrderId())).toBeTruthy();
-})
+Then("Verify order in present in the OrderHistory", async function () {
+  const dashboardPage = this.poManager.getDashboardPage();
+  await dashboardPage.navigateToOrders();
+  const orderHistoryPage = this.poManager.getOrdersHistoryPage();
+  await orderHistoryPage.searchOrderAndSelect(this.orderId);
+
+  // Order ID 검증
+  const fetchedOrderId = await orderHistoryPage.getOrderId();
+  expect(this.orderId.includes(fetchedOrderId)).toBeTruthy();
+});
