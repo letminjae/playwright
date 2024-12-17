@@ -43,3 +43,27 @@ Then("Verify order in present in the OrderHistory", async function () {
   const fetchedOrderId = await orderHistoryPage.getOrderId();
   expect(this.orderId.includes(fetchedOrderId)).toBeTruthy();
 });
+
+// ---------------------- ErrorValidation ----------------------
+
+Given(
+  "a login to Ecommerce2 application with {string} and {string}",
+  async function () {
+    // page.route('**/*.{jpg,png,jpeg}',route=> route.abort());
+    const userName = this.page.locator("#username");
+    const signIn = this.page.locator("#signInBtn");
+    const cardTitles = this.page.locator(".card-body a");
+    await this.page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    console.log(await this.page.title());
+    // css
+    await userName.fill("cmjj0824");
+    await this.page.locator("[type='password']").fill("learning");
+    await signIn.click();
+  }
+);
+
+Then("Verify Error message is displayed", async function () {
+  await expect(this.page.locator("[style*='block']")).toContainText(
+    "Incorrect"
+  );
+});
