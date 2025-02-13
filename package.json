@@ -3,7 +3,12 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "regression": "npx playwright test",
+    "webTest": "npx playwright test --grep @Web",
+    "APITest": "npx playwright test --grep @API",
+    "CucumberRegression": "npx cucumber-js --tags '@regression' --retry 1 --exit --format html:cucumber-report.html"
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",
