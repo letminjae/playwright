@@ -3,7 +3,9 @@
 ![License](https://img.shields.io/github/license/letminjae/playwright)
 ![Stars](https://img.shields.io/github/stars/letminjae/playwright?style=social)
 
-Playwright를 입문하기 위해 공부한 레포지토리입니다. E2E 테스트 및 API 테스트, Allure Reporting과 Cucumber.js 사용 또한 연습해보았습니다.
+Playwright를 입문하기 위해 공부한 레포지토리입니다.
+<br>
+E2E 테스트 및 API 테스트는 물론 Allure Reporting, Cucumber.js 또한 사용해보았습니다.
 
 ## 🛠 기술 스택
 
@@ -16,20 +18,27 @@ Playwright를 입문하기 위해 공부한 레포지토리입니다. E2E 테스
 ## 📂 프로젝트 구조
 
 ```
-features
- ├── step_definitions
- │   ├── steps.js
- │   ├── steps.ts
- │   ├── support
- │   │   ├── hooks.js
+project-root
+ ├── features
+ │   ├── step_definitions
+ │   │   ├── steps.js
+ │   │   ├── steps.ts
+ │   │   ├── support
+ │   │   │   ├── hooks.js
  │   ├── Ecommerce.feature
  │   ├── ErrorValidation.feature
  ├── page_object
+ │   ├── CartPage.js
  │   ├── CartPage.ts
+ │   ├── DashboardPage.js
  │   ├── DashboardPage.ts
+ │   ├── LoginPage.js
  │   ├── LoginPage.ts
+ │   ├── OrdersHistoryPage.js
  │   ├── OrdersHistoryPage.ts
+ │   ├── OrdersReviewPage.js
  │   ├── OrdersReviewPage.ts
+ │   ├── POManager.js
  │   ├── POManager.ts
  ├── tests
  │   ├── homework
